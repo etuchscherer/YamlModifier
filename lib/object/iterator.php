@@ -1,6 +1,6 @@
 <?php
 
-include 'object.php';
+require_once 'object.php';
 
 /**
  * Description of iterator
@@ -40,7 +40,7 @@ class iteratorObject extends object implements Iterator {
      * @param array $data 
      * @return $data;
      */
-    public function load(Array $data) {
+    public function loadIterator(Array $data) {
         $this->_iterator = $data;
         return $this;
     }
@@ -86,7 +86,7 @@ class iteratorObject extends object implements Iterator {
     
     /**
      * Returns the iterator object
-     * @return type 
+     * @return file 
      */
     public function getIterator() {
         return $this->_iterator;

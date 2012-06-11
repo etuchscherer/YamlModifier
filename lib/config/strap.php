@@ -1,12 +1,11 @@
 <?php
 
-define(APPLICATION_PATH, realpath('.'));
+require_once '../file/dir.php';
+require_once '../logProcessor/message.php';
+require_once '../logProcessor/bundle.php';
 
-include '../file/dir.php';
-include '../file/file.php';
+$message = message::getInstance('fuinda', time());
 
-$dir = dir::getInstance(APPLICATION_PATH);
+$bundle  = new bundle();
 
-foreach ($dir->getIterator() as $foo) {
-    echo $foo;
-}
+var_dump($bundle->getLastRead());

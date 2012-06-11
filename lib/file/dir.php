@@ -1,6 +1,7 @@
 <?php
 
-include '../object/iterator.php';
+require_once '../object/iterator.php';
+require_once 'file.php';
 
 class dir extends iteratorObject {
     
@@ -10,19 +11,28 @@ class dir extends iteratorObject {
             $this->_stdError($var, $expected, $method, $line);
         }
         
-        $array = array();
+        $files  = array();
         $handle = opendir($directory);
 
         while (($file = readdir($handle)) !== false) {
-            $array[] = new fileObj($file, $directory);
+            $files[]  = new fileObj($file, $directory);
         }
         
-        array_shift($array);
-        array_shift($array);
+        array_shift($files);
+        array_shift($files);
         
         closedir($handle);        
-        $this->load($array);
+        $this->loadIterator($files);
         return $this;
+    }
+    
+    /**
+     * Creates a file in this dir. 
+     * @param string $filename
+     * @param string $content 
+     */
+    public function addFile($filename, $content) {
+        $file = fileObj::create($filename, $content);
     }
     
     /**
