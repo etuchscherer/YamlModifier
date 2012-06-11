@@ -1,6 +1,6 @@
 <?php
 
-require_once '../object/iterator.php';
+require_once 'messageHolder.php';
 
 /**
  * Description of newPHPClass
@@ -11,9 +11,9 @@ class bundle extends iteratorObject {
     
     /**
      * Container for messages
-     * @var array
+     * @var messageHolder
      */
-    private $_messages = array();
+    private $_messages;
     
     /**
      * Timestamp of last read.
@@ -35,6 +35,7 @@ class bundle extends iteratorObject {
         }
         
         $this->_lastRead = $lastRead;
+        $this->_messages = new messageHolder();
     }
     
     /**
@@ -46,10 +47,10 @@ class bundle extends iteratorObject {
     }
     
     /**
-     * Returns an array of all the bundle's messages. 
+     * Returns the message holder object.
      * @return array
      */
-    public function getMessages() {
+    public function getMessageHolder() {
         return $this->_messages;
     }
     
@@ -73,11 +74,33 @@ class bundle extends iteratorObject {
     }
     
     /**
-     * Adds a message into the bundle.
+     * Returns an array of the bundle.
+     * @return array
+     */
+    public function toArray() {
+        
+        return array('bundle' => array(
+                         'lastRead' => $this->_lastRead,
+                         'messages' => $this->_messages->toArray(),
+                    )
+        );
+    }
+    
+    /**
+     * Returns the bundle in JSON format.
+     * @return string
+     */
+    public function toJson() {
+        return json_encode($this->toArray());
+    }
+
+
+    /**
+     * Adds a message into the bundle's message container.
      * @param message $message 
      */
-    private function _addMessage(message $message) {
-        $this->_messages[] = $message;
+    public function addMessage(message $message) {
+        $this->_messages->addMessage($message);
         return $this;
     }
 }
