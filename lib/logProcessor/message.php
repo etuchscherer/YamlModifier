@@ -45,6 +45,14 @@ class message extends object {
     }
     
     /**
+     * 
+     * @param type $message 
+     */
+    public static function fromJson($message) {
+        
+    }
+    
+    /**
      * Sets the message content. 
      * @param string $content
      * @return message 
@@ -87,5 +95,4 @@ class message extends object {
     public function __toString() {
         return $this->toJson();
     }
-    
 }

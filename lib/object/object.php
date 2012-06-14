@@ -47,6 +47,14 @@ abstract class object {
     }
     
     /**
+     * Returns the overloaded var for use.
+     * @return array
+     */
+    protected function getOverloaded() {
+        return $this->_overload;
+    }
+    
+    /**
      * A standard error for a functions parameters. 
      * @param mixed  $var
      * @param string $expected
